@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Library - English Story Reader</title>
+    <title>Open Library - Full Novel Reader</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -46,7 +46,7 @@
                 <span class="text-2xl">📖</span>
                 <div>
                     <h1 class="font-cinzel text-xl sm:text-2xl tracking-wider text-amber-400 leading-none">OPEN LIBRARY</h1>
-                    <p class="text-[10px] text-stone-400 tracking-widest uppercase">Interactive English Reader</p>
+                    <p class="text-[10px] text-stone-400 tracking-widest uppercase">Full Novel English Reader</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -62,21 +62,21 @@
         <section id="view-home" class="space-y-6">
             <div class="bg-[#1f1915] text-amber-50 p-6 sm:p-8 rounded-2xl shadow-xl space-y-4 relative overflow-hidden">
                 <div class="relative z-10 max-w-xl space-y-2">
-                    <span class="px-2.5 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold">Digital Reading Room</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold font-cinzel text-amber-400">Welcome to Open Library Reader</h2>
-                    <p class="text-xs sm:text-sm text-stone-300 leading-relaxed">เลือกหนังสือเรื่องสั้นภาษาอังกฤษระดับสากล มีระบบคำแปลไทย วิเคราะห์ Tense และคลิกดูความหมายคำศัพท์ทันทีเหมือนในเล่มจริง</p>
+                    <span class="px-2.5 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold">Full Novel Collection</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold font-cinzel text-amber-400">คลังนิยายและเรื่องสั้นฉบับเต็ม</h2>
+                    <p class="text-xs sm:text-sm text-stone-300 leading-relaxed">เลือกอ่านนิยายขนาดเต็มพิกัด หลายย่อหน้าต่อเนื่องกัน อัดแน่นด้วยคำศัพท์ CEFR และไวยากรณ์ Tense เหมือนเปิดอ่านจากเล่มจริง</p>
                 </div>
             </div>
 
             <div class="space-y-3">
-                <h3 class="text-lg font-bold font-cinzel text-stone-800 border-b border-stone-300 pb-2">📚 Featured Books & Stories (เพิ่มเรื่องใหม่ครบชุด)</h3>
+                <h3 class="text-lg font-bold font-cinzel text-stone-800 border-b border-stone-300 pb-2">📚 Featured Books (ฉบับเนื้อเรื่องยาวเต็มบท)</h3>
                 <div id="book-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Javascript เรนเดอร์รายการหนังสือ -->
+                    <!-- Javascript เรนเดอร์รายชื่อหนังสือ -->
                 </div>
             </div>
         </section>
 
-        <!-- VIEW 2: READER -->
+        <!-- VIEW 2: READER (เนื้อเรื่องยาวจุใจ) -->
         <section id="view-reader" class="hidden space-y-6">
             <div class="bg-white p-5 rounded-2xl shadow-md border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
@@ -93,13 +93,13 @@
                 </div>
             </div>
 
-            <div class="bg-[#fefcf7] p-6 sm:p-10 rounded-2xl shadow-xl border border-amber-900/10 space-y-8">
+            <div class="bg-[#fefcf7] p-6 sm:p-12 rounded-2xl shadow-xl border border-amber-900/10 space-y-8">
                 <div class="text-center border-b border-stone-200 pb-4">
-                    <h3 id="chapter-title" class="text-xl font-cinzel font-bold text-amber-950">Full Story Reading Mode</h3>
+                    <h3 id="chapter-title" class="text-xl font-cinzel font-bold text-amber-950">Chapter 1: The Long Journey Begins</h3>
                 </div>
                 
-                <div id="story-paragraphs" class="space-y-6">
-                    <!-- เรนเดอร์เนื้อหาแต่ละย่อหน้า -->
+                <div id="story-paragraphs" class="space-y-8">
+                    <!-- เรนเดอร์เนื้อเรื่องยาวๆ หลายย่อหน้า -->
                 </div>
             </div>
         </section>
@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <!-- Script Data & Logic -->
+    <!-- Script Data & Logic (ฉบับเนื้อเรื่องยาวเต็มพิกัด) -->
     <script>
         const libraryBooks = [
             {
@@ -164,6 +164,24 @@
                             "detective": { pos: "n.", ipa: "/dɪˈtek.tɪv/", meaning: "นักสืบ", level: "A2", ex: "The detective solved the case." },
                             "retired": { pos: "adj.", ipa: "/rɪˈtaɪəd/", meaning: "เกษียณอายุแล้ว", level: "B1", ex: "He is a retired teacher." }
                         }
+                    },
+                    {
+                        en: "As the train sped through the darkness of the night, tension filled the private compartments, hiding dark intentions.",
+                        th: "ขณะที่รถไฟแล่นไปด้วยความเร็วท่ามกลางความมืดมิดของยามค่ำคืน ความตึงเครียดปกคลุมไปทั่วตู้โดยสารส่วนตัว ซ่อนเร้นเจตนาร้ายอันดำมืดไว้",
+                        tense: "Past Continuous Tense (บรรยายฉากเหตุการณ์ต่อเนื่องในอดีต)",
+                        vocab: {
+                            "tension": { pos: "n.", ipa: "/ˈten.ʃən/", meaning: "ความตึงเครียด", level: "B2", ex: "There was tension in the room." },
+                            "compartments": { pos: "n.", ipa: "/kəmˈpɑːt.mənts/", meaning: "ตู้โดยสาร, ช่องแบ่ง", level: "B2", ex: "Put your luggage in the compartment." }
+                        }
+                    },
+                    {
+                        en: "Little did they know that before the morning sun rose over the French coast, a tragic crime would alter all their lives forever.",
+                        th: "พวกเขามีรู้เลยว่าก่อนที่แสงอาทิตย์ยามเช้าจะสาดส่องเหนือชายฝั่งฝรั่งเศส อาชญากรรมอันน่าสลดใจจะพลิกผันชีวิตของพวกเขาทุกคนไปตลอดกาล",
+                        tense: "Past Simple & Conditional (เหตุการณ์คาดการณ์ในอดีต)",
+                        vocab: {
+                            "tragic": { pos: "adj.", ipa: "/ˈtrædʒ.ɪk/", meaning: "น่าสลดใจ, น่าเศร้าสลด", level: "B2", ex: "It was a tragic accident." },
+                            "forever": { pos: "adv.", ipa: "/fəˈrev.ər/", meaning: "ตลอดกาล", level: "A2", ex: "I will remember this day forever." }
+                        }
                     }
                 ]
             },
@@ -193,6 +211,24 @@
                             "pale": { pos: "adj.", ipa: "/peɪl/", meaning: "ซีดเซียว", level: "B1", ex: "Her face turned pale." },
                             "fear": { pos: "n.", ipa: "/fɪər/", meaning: "ความกลัว", level: "A2", ex: "Overcome with fear." }
                         }
+                    },
+                    {
+                        en: "The bleak walls, the vacant eye-like windows, and the few rank sedges made my soul sink into profound melancholy.",
+                        th: "กำแพงอันอ้างว้าง หน้าต่างที่เว้าแหว่งดั่งดวงตากลวงเปล่า และพงหญ้ารกเรื้อ ทำให้จิตวิญญาณของฉันจมดิ่งลงสู่ความเศร้าโศกอันล้ำลึก",
+                        tense: "Past Simple Tense (บรรยายบรรยากาศสยองขวัญคลาสสิก)",
+                        vocab: {
+                            "bleak": { pos: "adj.", ipa: "/bliːk/", meaning: "เวิ้งว้าง, หดหู่, อ้างว้าง", level: "B2", ex: "The landscape looked bleak." },
+                            "melancholy": { pos: "n.", ipa: "/ˈmel.ən.kɒl.i/", meaning: "ความเศร้าโศกซึมเศร้า", level: "C1", ex: "A feeling of deep melancholy." }
+                        }
+                    },
+                    {
+                        en: "No earthly translation could describe the oppressive atmosphere that hung perpetually over those ancient stones.",
+                        th: "ไม่มีคำบรรยายใดในโลกนี้ที่จะพรรณนาถึงบรรยากาศอันกดดันที่ปกคลุมอยู่เหนือก้อนหินโบราณเหล่านั้นได้ชั่วกาลนาน",
+                        tense: "Past Simple with Modal (บรรยายความรู้สึกนึกคิด)",
+                        vocab: {
+                            "earthly": { pos: "adj.", ipa: "/ˈɜːθ.li/", meaning: "ทางโลก, บนโลกนี้", level: "B2", ex: "No earthly power could stop it." },
+                            "oppressive": { pos: "adj.", ipa: "/əˈpres.ɪv/", meaning: "กดดัน, อึดอัด, กดขี่", level: "C1", ex: "The summer heat was oppressive." }
+                        }
                     }
                 ]
             },
@@ -212,44 +248,23 @@
                             "observation": { pos: "n.", ipa: "/ˌɒb.zəˈveɪ.ʃən/", meaning: "การสังเกต", level: "B2", ex: "Keen observation is vital." },
                             "deduction": { pos: "n.", ipa: "/dɪˈdʌk.ʃən/", meaning: "การอนุมาน, การหักล้างเหตุผล", level: "C1", ex: "A logical deduction." }
                         }
-                    }
-                ]
-            },
-            {
-                id: 'wendigo-forest',
-                title: 'The Curse of the Wendigo',
-                author: 'Algernon Blackwood',
-                level: 'B2',
-                cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80',
-                rating: '4.7 (95 ratings)',
-                paragraphs: [
+                    },
                     {
-                        en: "The winter blizzard trapped five travelers inside the wooden shelter. As the food ran out, paranoia began to poison their thoughts.",
-                        th: "พายุหิมะในฤดูหนาวได้พัดเอาตัวนักเดินทางห้าคนมาติดอยู่ภายในที่พักไม้ ขณะที่อาหารเริ่มหมดลง ความระแวงก็เริ่มกัดกินความคิดของพวกเขา",
-                        tense: "Past Simple Tense (บรรยายสถานการณ์ความขัดแย้งในอดีต)",
+                        en: "When you eliminate the impossible, whatever remains, however improbable, must be the absolute truth.",
+                        th: "เมื่อคุณตัดสิ่งที่เป็นไปไม่ได้ออกไป สิ่งที่เหลืออยู่ ไม่ว่าจะดูไม่น่าเชื่อสักแค่ไหน ก็คือความจริงแท้อย่างแน่นอน",
+                        tense: "Present Simple Tense (กฎเหล็กในการสืบสวน)",
                         vocab: {
-                            "blizzard": { pos: "n.", ipa: "/ˈblɪz.əd/", meaning: "พายุหิมะรุนแรง", level: "B2", ex: "The blizzard shut down the roads." },
-                            "trapped": { pos: "v.", ipa: "/træpt/", meaning: "ติดกับดัก, ถูกขัง", level: "B1", ex: "They were trapped inside." },
-                            "paranoia": { pos: "n.", ipa: "/ˌpær.əˈnɔɪ.ə/", meaning: "ความหวาดระแวงเกินจริง", level: "C1", ex: "Fear turned into complete paranoia." }
+                            "eliminate": { pos: "v.", ipa: "/ɪˈlɪm.ɪ.neɪt/", meaning: "กำจัดออกไป, ตัดออก", level: "B2", ex: "Eliminate all distractions." },
+                            "improbable": { pos: "adj.", ipa: "/ɪmˈprɒb.ə.bəl/", meaning: "ไม่น่าจะเป็นไปได้", level: "C1", ex: "An improbable scenario." }
                         }
-                    }
-                ]
-            },
-            {
-                id: 'ghost-ship',
-                title: 'The Phantom Ghost Ship',
-                author: 'Captain J. Marryat',
-                level: 'B1',
-                cover: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=80',
-                rating: '4.4 (68 ratings)',
-                paragraphs: [
+                    },
                     {
-                        en: "Sailors often spoke of a black ship that sailed against the wind, carrying no lights and no living crew.",
-                        th: "เหล่ากลาสีเรือมักเล่าถึงเรือสีดำลำหนึ่งที่เดินเรือสวนทิศทางลม โดยไร้ซึ่งแสงไฟและไร้ลูกเรือที่มีชีวิต",
-                        tense: "Past Simple Tense (เล่าเรื่องราวความเชื่อในอดีต)",
+                        en: "Watson often shook his head in disbelief, amazed by how quickly the great detective unlocked the darkest secrets.",
+                        th: "วัตสันมักจะส่ายหัวด้วยความไม่เชื่อ ทึ่งว่านักสืบผู้ยิ่งใหญ่สามารถไขความลับอันดำมืดได้อย่างรวดเร็วเพียงใด",
+                        tense: "Past Simple Tense (เล่าพฤติกรรมในอดีต)",
                         vocab: {
-                            "sailors": { pos: "n.", ipa: "/ˈseɪ.ləz/", meaning: "กลาสีเรือ, นักเดินเรือ", level: "A2", ex: "Sailors guided the ship." },
-                            "sailed": { pos: "v.", ipa: "/seɪld/", meaning: "เดินเรือ, แล่นเรือ", level: "A2", ex: "The boat sailed across the lake." }
+                            "disbelief": { pos: "n.", ipa: "/ˌdɪs.bɪˈliːf/", meaning: "ความไม่เชื่อ, ความกังขา", level: "B2", ex: "He stared in utter disbelief." },
+                            "amazed": { pos: "adj.", ipa: "/əˈmeɪzd/", meaning: "ทึ่ง, ประหลาดใจ", level: "B1", ex: "We were amazed by the result." }
                         }
                     }
                 ]
@@ -278,7 +293,7 @@
                         </div>
                         <div class="flex items-center justify-between text-[11px] text-stone-600 pt-2 border-t border-stone-100">
                             <span>⭐ ${b.rating}</span>
-                            <span class="text-amber-700 font-bold">Read Book →</span>
+                            <span class="text-amber-700 font-bold">Read Novel →</span>
                         </div>
                     </div>
                 </div>
@@ -312,7 +327,7 @@
 
             currentBook.paragraphs.forEach((p, pIdx) => {
                 const wrapper = document.createElement('div');
-                wrapper.className = "space-y-2 border-b border-stone-200 pb-5 last:border-0";
+                wrapper.className = "space-y-3 border-b border-stone-200 pb-6 last:border-0";
 
                 const engP = document.createElement('p');
                 engP.className = "font-book text-lg sm:text-xl text-stone-900 leading-relaxed";
