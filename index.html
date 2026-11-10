@@ -3,303 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campfire Horror Story Reader</title>
+    <title>Open Library - English Story Reader</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Creepster&family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Sarabun', sans-serif; }
-        .font-horror { font-family: 'Creepster', cursive; }
-        .font-title { font-family: 'Cinzel', serif; }
-        
-        /* Custom Scrollbar */
+        body { font-family: 'Sarabun', sans-serif; background-color: #f8f6f0; color: #2c241d; }
+        .font-book { font-family: 'Lora', serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+
+        .word-token {
+            display: inline-block;
+            padding: 0 3px;
+            margin: 1px 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .word-token:hover {
+            background-color: #fce7f3;
+            color: #9d174d;
+        }
+        .word-token.selected {
+            background-color: #fca5a5;
+            color: #7f1d1d;
+            font-weight: 600;
+            outline: 2px solid #ef4444;
+        }
+
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #1a1a1a; }
-        ::-webkit-scrollbar-thumb { background: #ea580c; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #eae5d9; }
+        ::-webkit-scrollbar-thumb { background: #b45309; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-stone-950 text-stone-100 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col justify-between">
 
-    <!-- Header Navigation -->
-    <header class="bg-stone-900 border-b border-orange-950/60 sticky top-0 z-40 px-4 py-3 shadow-lg">
+    <!-- Header สไตล์ Open Library -->
+    <header class="bg-[#2c241d] text-stone-100 shadow-md sticky top-0 z-40 px-4 py-3">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('library')">
-                <span class="text-2xl">🔥</span>
+            <div class="flex items-center gap-3 cursor-pointer" onclick="goHome()">
+                <span class="text-2xl">📖</span>
                 <div>
-                    <h1 class="font-horror text-2xl tracking-wider text-orange-500 leading-none">CAMPFIRE HORROR</h1>
-                    <p class="text-[10px] text-stone-400 tracking-widest uppercase">Read N' Joy English Learning</p>
+                    <h1 class="font-cinzel text-xl sm:text-2xl tracking-wider text-amber-400 leading-none">OPEN LIBRARY</h1>
+                    <p class="text-[10px] text-stone-400 tracking-widest uppercase">Interactive English Reader</p>
                 </div>
             </div>
-            
-            <!-- Navigation Tabs -->
-            <nav class="flex gap-2">
-                <button onclick="switchTab('library')" id="btn-library" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 text-white transition">คลังเรื่องสั้น</button>
-                <button onclick="switchTab('reader')" id="btn-reader" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-800 text-stone-400 hover:text-white transition">โหมดอ่านคู่</button>
-                <button onclick="switchTab('focus')" id="btn-focus" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-800 text-stone-400 hover:text-white transition">Learning Focus</button>
-            </nav>
+            <div class="flex items-center gap-2">
+                <button onclick="goHome()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-400 rounded-lg text-xs font-semibold transition">หน้าหลักห้องสมุด</button>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-1 max-w-6xl w-full mx-auto p-4">
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
 
-        <!-- TAB 1: STORY LIBRARY -->
-        <section id="tab-library" class="space-y-6">
-            <div class="bg-gradient-to-r from-orange-950/40 via-stone-900 to-stone-900 p-6 rounded-2xl border border-orange-900/40 relative overflow-hidden">
+        <!-- VIEW 1: HOME LIBRARY -->
+        <section id="view-home" class="space-y-6">
+            <div class="bg-[#1f1915] text-amber-50 p-6 sm:p-8 rounded-2xl shadow-xl space-y-4 relative overflow-hidden">
                 <div class="relative z-10 max-w-xl space-y-2">
-                    <span class="px-2.5 py-1 bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-full text-xs font-bold">10 เรื่องสั้นสยองขวัญ</span>
-                    <h2 class="text-3xl font-bold font-title text-orange-400">ฝึกภาษาอังกฤษสไตล์ Campfire Horror</h2>
-                    <p class="text-xs text-stone-300 leading-relaxed">พัฒนาคลังคำศัพท์ภาษาอังกฤษผ่านเรื่องเล่าสุดหลอน พร้อมระบบเทียบแปลไทยย่อหน้าต่อย่อหน้า และป้ายบอกระดับ CEFR</p>
+                    <span class="px-2.5 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold">Digital Reading Room</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold font-cinzel text-amber-400">Welcome to Open Library Reader</h2>
+                    <p class="text-xs sm:text-sm text-stone-300 leading-relaxed">เลือกหนังสือเรื่องสั้นภาษาอังกฤษระดับสากล มีระบบคำแปลไทย วิเคราะห์ Tense และคลิกดูความหมายคำศัพท์ทันทีเหมือนในเล่มจริง</p>
                 </div>
             </div>
 
-            <!-- Story Grid -->
-            <div id="story-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Stories will be rendered here by JavaScript -->
-            </div>
-        </section>
-
-        <!-- TAB 2: DUAL READER (READING MODE) -->
-        <section id="tab-reader" class="hidden space-y-4">
-            <!-- Story Header Bar -->
-            <div class="flex items-center justify-between bg-stone-900 p-4 rounded-xl border border-stone-800">
-                <div>
-                    <span id="reader-level" class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-950 text-orange-400 border border-orange-800">B2</span>
-                    <h2 id="reader-title" class="text-xl font-bold font-title text-orange-400 mt-1">The Witch (1666)</h2>
-                </div>
-                <button onclick="switchTab('library')" class="text-xs text-stone-400 hover:text-orange-400 flex items-center gap-1">
-                    ← เปลี่ยนเรื่อง
-                </button>
-            </div>
-
-            <!-- Dual Book Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <!-- Left Page: English Text -->
-                <div class="bg-stone-900/90 p-6 rounded-2xl border border-stone-800 shadow-xl space-y-6">
-                    <div class="flex items-center justify-between border-b border-stone-800 pb-3">
-                        <span class="text-xs font-bold text-orange-500 flex items-center gap-1">📖 English Version</span>
-                        <span class="text-[10px] text-stone-500">แตะที่คำศัพท์เพื่อดูความหมาย</span>
-                    </div>
-                    <div id="english-content" class="space-y-6 leading-loose text-stone-200">
-                        <!-- English paragraphs rendered here -->
-                    </div>
-                </div>
-
-                <!-- Right Page: Thai Translation -->
-                <div class="bg-stone-900/50 p-6 rounded-2xl border border-stone-800/80 shadow-xl space-y-6">
-                    <div class="flex items-center justify-between border-b border-stone-800 pb-3">
-                        <span class="text-xs font-bold text-emerald-500 flex items-center gap-1">🇹🇭 บทแปลภาษาไทย</span>
-                        <span class="text-[10px] text-stone-500">แปลย่อหน้าต่อย่อหน้า</span>
-                    </div>
-                    <div id="thai-content" class="space-y-6 text-sm text-stone-300 leading-relaxed">
-                        <!-- Thai paragraphs rendered here -->
-                    </div>
+            <div class="space-y-3">
+                <h3 class="text-lg font-bold font-cinzel text-stone-800 border-b border-stone-300 pb-2">📚 Featured Books & Stories (เพิ่มเรื่องใหม่ครบชุด)</h3>
+                <div id="book-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Javascript เรนเดอร์รายการหนังสือ -->
                 </div>
             </div>
         </section>
 
-        <!-- TAB 3: LEARNING FOCUS -->
-        <section id="tab-focus" class="hidden space-y-4">
-            <div class="bg-stone-900 p-6 rounded-2xl border border-stone-800 space-y-4">
-                <div class="flex items-center justify-between border-b border-stone-800 pb-4">
+        <!-- VIEW 2: READER -->
+        <section id="view-reader" class="hidden space-y-6">
+            <div class="bg-white p-5 rounded-2xl shadow-md border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <img id="reader-cover" src="" alt="Cover" class="w-16 h-24 object-cover rounded-lg shadow">
                     <div>
-                        <h2 class="text-xl font-bold font-title text-purple-400">Learning Focus - คลังคำศัพท์ประจำเรื่อง</h2>
-                        <p class="text-xs text-stone-400">สรุปคำศัพท์สำคัญ คำอ่านพินอิน/ซับไทย และหน้าที่ของคำ</p>
+                        <span id="reader-level" class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300">B2</span>
+                        <h2 id="reader-title" class="text-xl font-bold font-cinzel text-stone-900 mt-1">Book Title</h2>
+                        <p id="reader-author" class="text-xs text-stone-500">Author Name</p>
                     </div>
                 </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="toggleTranslation()" id="btn-translate" class="px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-xs font-semibold transition border border-amber-300">🌐 ซ่อน/แสดง คำแปลไทย</button>
+                    <button onclick="goHome()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-white rounded-lg text-xs font-semibold transition">← กลับชั้นหนังสือ</button>
+                </div>
+            </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-stone-300">
-                        <thead class="text-xs uppercase bg-stone-800 text-stone-400">
-                            <tr>
-                                <th class="p-3 rounded-l-lg">Vocabulary</th>
-                                <th class="p-3">POS</th>
-                                <th class="p-3">คำอ่านไทย / IPA</th>
-                                <th class="p-3 rounded-r-lg">ความหมายภาษาไทย</th>
-                            </tr>
-                        </thead>
-                        <tbody id="vocab-table-body" class="divide-y divide-stone-800">
-                            <!-- Vocab rows rendered here -->
-                        </tbody>
-                    </table>
+            <div class="bg-[#fefcf7] p-6 sm:p-10 rounded-2xl shadow-xl border border-amber-900/10 space-y-8">
+                <div class="text-center border-b border-stone-200 pb-4">
+                    <h3 id="chapter-title" class="text-xl font-cinzel font-bold text-amber-950">Full Story Reading Mode</h3>
+                </div>
+                
+                <div id="story-paragraphs" class="space-y-6">
+                    <!-- เรนเดอร์เนื้อหาแต่ละย่อหน้า -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Word Dictionary Modal -->
-    <div id="dict-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-4">
-        <div class="bg-stone-900 border border-orange-900/60 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative animate-bounce-in">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-white text-lg">✕</button>
+    <!-- Modal คำศัพท์ -->
+    <div id="vocab-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-4" onclick="closeVocabModal()">
+        <div class="bg-[#fffdfa] border-2 border-amber-900/30 rounded-2xl max-w-sm w-full p-5 space-y-3 shadow-2xl text-stone-900 relative" onclick="event.stopPropagation()">
+            <button onclick="closeVocabModal()" class="absolute top-3 right-3 text-stone-400 hover:text-stone-900 text-base font-bold">✕</button>
             <div class="flex items-center gap-2">
-                <span id="modal-cefr" class="px-2 py-0.5 bg-orange-950 text-orange-400 border border-orange-800 rounded text-[10px] font-bold">B2</span>
-                <span id="modal-pos" class="text-xs text-stone-400 italic">noun</span>
+                <span id="v-pos" class="text-xs bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold italic">noun</span>
+                <span id="v-level" class="text-[10px] bg-red-900 text-red-100 px-1.5 py-0.5 rounded font-bold">B2</span>
             </div>
             <div>
-                <h3 id="modal-word" class="text-2xl font-bold font-title text-orange-400">Word</h3>
-                <p id="modal-ipa" class="text-xs text-stone-400 mt-0.5">/wɜːd/</p>
+                <h3 id="v-word" class="text-2xl font-bold font-book text-amber-950">word</h3>
+                <p id="v-ipa" class="text-xs text-stone-500 font-mono mt-0.5">/wɜːd/</p>
             </div>
-            <div class="p-3 bg-stone-950 rounded-lg border border-stone-800">
-                <p id="modal-meaning" class="text-base font-semibold text-emerald-400">ความหมายภาษาไทย</p>
+            <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                <p id="v-meaning" class="text-base font-bold text-amber-900">คำแปลภาษาไทย</p>
+                <p id="v-example" class="text-xs text-stone-600 italic mt-1 font-book">"Example sentence."</p>
             </div>
-            <button onclick="closeModal()" class="w-full py-2 bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold rounded-lg transition">ปิดหน้าต่าง</button>
         </div>
     </div>
 
-    <!-- Data & Script -->
+    <!-- Script Data & Logic -->
     <script>
-        const stories = [
+        const libraryBooks = [
             {
-                id: 'witch',
-                title: 'The Witch (แม่มด 1666)',
+                id: 'blue-train',
+                title: 'The Mystery of the Blue Train',
+                author: 'Agatha Christie',
                 level: 'B2',
-                vocabCount: 128,
-                image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&q=80',
-                english: [
-                    "1666 was the year of the witch hunt. Fear and superstition spread like wildfire through the village. The villagers whispered about the mysterious forest, believing it was a witch's place.",
-                    "No one dared to enter after dark, fearing the dark magic said to reside within its depths. They believed an ancient curse was alive, controlling unseen forces."
-                ],
-                thai: [
-                    "ปี 1666 เป็นปีแห่งการล่าแม่มด ความกลัวและความเชื่อเรื่องไสยศาสตร์แพร่กระจายไปทั่วหมู่บ้านอย่างรวดเร็ว ชาวบ้านต่างซุบซิบเกี่ยวกับป่าลึกลับ โดยเชื่อว่าเป็นที่อยู่ของแม่มด",
-                    "ไม่มีใครกล้าเข้าไปหลังจากความมืดเข้าครอบคลุม ด้วยความกลัวในมนตร์ดำที่เล่าขานกันว่าสถิตอยู่ ณ ส่วนลึกของป่า พวกเชื่อว่าคำสาปโบราณยังมีชีวิตและควบคุมพลังลึกลับที่มองไม่เห็น"
-                ],
-                taggedWords: {
-                    "superstition": { pos: "n.", ipa: "/ˌsuː.pɚˈstɪʃ.ən/", thReading: "ซูเปอร์สติชเชิน", meaning: "ความเชื่อเรื่องไสยศาสตร์", level: "B2" },
-                    "wildfire": { pos: "n.", ipa: "/ˈwaɪld.faɪr/", thReading: "ไวลด์ไฟเออร์", meaning: "ไฟป่า / แพร่กระจายอย่างรวดเร็ว", level: "B1" },
-                    "whispered": { pos: "v.", ipa: "/ˈwɪs.pɚd/", thReading: "วิสเปอร์ด", meaning: "กระซิบ / ซุบซิบ", level: "A2" },
-                    "mysterious": { pos: "adj.", ipa: "/mɪˈstɪr.i.əs/", thReading: "มิสทีเรียส", meaning: "ลึกลับ / น่าพิศวง", level: "B1" },
-                    "reside": { pos: "v.", ipa: "/rɪˈzaɪd/", thReading: "รีไซด์", meaning: "อยู่อาศัย / สถิตอยู่", level: "C1" },
-                    "curse": { pos: "n.", ipa: "/kɝːs/", thReading: "เคิร์ส", meaning: "คำสาป", level: "B2" }
-                }
+                cover: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80',
+                rating: '4.1 (34 ratings)',
+                paragraphs: [
+                    {
+                        en: "The Mystery of the Blue Train revolves around a set of fabulous rubies, said to have been worn by Catherine the Great.",
+                        th: "ปริศนาแห่งรถไฟสีน้ำเงินเกี่ยวข้องกับชุดทับทิมอันวิจิตรงดงาม ซึ่งเล่าขานกันว่าครั้งหนึ่งเคยสวมใส่โดยแคทเธอรีนมหาราช",
+                        tense: "Present Simple Tense (บรรยายเนื้อหาหลักของเรื่อง)",
+                        vocab: {
+                            "mystery": { pos: "n.", ipa: "/ˈmɪs.tər.i/", meaning: "ปริศนา, ความลับ", level: "B1", ex: "The case remains a mystery." },
+                            "fabulous": { pos: "adj.", ipa: "/ˈfæb.jə.ləs/", meaning: "วิจิตรงดงาม, มหัศจรรย์", level: "B2", ex: "She wore a fabulous dress." },
+                            "rubies": { pos: "n.", ipa: "/ˈruː.biːz/", meaning: "อัญมณีทับทิม", level: "B2", ex: "The ring was set with rubies." }
+                        }
+                    },
+                    {
+                        en: "When she takes them with her on a luxury train to the Riviera, she is unaware that among her fellow passengers is her unfaithful husband.",
+                        th: "เมื่อเธอนำมันติดตัวไปด้วยบนรถไฟหรูไปยังรีเวียร่า เธอไม่รู้เลยว่าท่ามกลางเพื่อนร่วมทางคือสามีผู้ไม่ซื่อสัตย์ของเธอ",
+                        tense: "Present Simple Tense (เล่าเหตุการณ์ที่กำลังดำเนินไป)",
+                        vocab: {
+                            "luxury": { pos: "adj.", ipa: "/ˈlʌk.ʃər.i/", meaning: "หรูหรา, ฟุ่มเฟือย", level: "B1", ex: "They stayed in a luxury hotel." },
+                            "unaware": { pos: "adj.", ipa: "/ˌʌn.əˈweər/", meaning: "ไม่รู้ตัว, ไม่ทันสังเกต", level: "B2", ex: "He was unaware of the danger." },
+                            "passengers": { pos: "n.", ipa: "/ˈpæsən.dʒəz/", meaning: "ผู้โดยสาร", level: "A2", ex: "All passengers must fasten seatbelts." }
+                        }
+                    },
+                    {
+                        en: "A quiet Englishwoman who believes that nothing exciting ever happens to her meets the famous retired detective Hercule Poirot.",
+                        th: "หญิงชาวอังกฤษผู้เงียบขรึมผู้เชื่อว่าไม่มีเรื่องตื่นเต้นเกิดขึ้นกับเธอเลย ได้มาพบกับนักสืบเกษียณชื่อดัง แอร์กูล ปัวโรต์",
+                        tense: "Present Simple Tense (แนะนำตัวละครและการพบกัน)",
+                        vocab: {
+                            "detective": { pos: "n.", ipa: "/dɪˈtek.tɪv/", meaning: "นักสืบ", level: "A2", ex: "The detective solved the case." },
+                            "retired": { pos: "adj.", ipa: "/rɪˈtaɪəd/", meaning: "เกษียณอายุแล้ว", level: "B1", ex: "He is a retired teacher." }
+                        }
+                    }
+                ]
             },
             {
-                id: 'wendigo',
-                title: 'The Wendigo (อสูรกายแห่งป่าหิมะ)',
+                id: 'usher-house',
+                title: 'The Fall of the House of Usher',
+                author: 'Edgar Allan Poe',
+                level: 'B2',
+                cover: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&q=80',
+                rating: '4.5 (112 ratings)',
+                paragraphs: [
+                    {
+                        en: "I tell you, my friend, this house has a strange power over my mind, and I cannot escape its dark influence,",
+                        th: "\"ข้าขอบอกเจ้าเลย เพื่อนเอ๋ย คฤหาสน์หลังนี้มีพลังอันน่าประหลาดครอบงำจิตใจข้า และข้าไม่สามารถหลีกหนีอิทธิพลอันมืดมนของมันได้\"",
+                        tense: "Present Simple Tense (แสดงความรู้สึกและสภาพแวดล้อมปัจจุบัน)",
+                        vocab: {
+                            "friend": { pos: "n.", ipa: "/frend/", meaning: "เพื่อน, สหาย", level: "A1", ex: "He is my best friend." },
+                            "house": { pos: "n.", ipa: "/haʊs/", meaning: "บ้าน, คฤหาสน์", level: "A1", ex: "This house is very old." },
+                            "escape": { pos: "v.", ipa: "/ɪˈskeɪp/", meaning: "หลบหนี, ทางรอด", level: "B1", ex: "He tried to escape." }
+                        }
+                    },
+                    {
+                        en: "said Roderick with a pale face and shaking hands. His voice was low but full of fear.",
+                        th: "โรเดอริกกล่าวด้วยใบหน้าที่ซีดเซียวและมือที่สั่นเทา เสียงของเขาสลับเบาแต่เปี่ยมไปด้วยความกลัว",
+                        tense: "Past Simple Tense (เหตุการณ์ในอดีต)",
+                        vocab: {
+                            "pale": { pos: "adj.", ipa: "/peɪl/", meaning: "ซีดเซียว", level: "B1", ex: "Her face turned pale." },
+                            "fear": { pos: "n.", ipa: "/fɪər/", meaning: "ความกลัว", level: "A2", ex: "Overcome with fear." }
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'sherlock-holmes',
+                title: 'How To Think Like Sherlock',
+                author: 'Daniel Smith',
                 level: 'B1',
-                vocabCount: 110,
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80',
-                english: [
-                    "The group settled around the campfire, its flames casting long shadows against the snow-covered trees. They felt a chill that wasn't just from the icy wind.",
-                    "Deep within the dark forest, glowing red eyes watched them silently. The legend of the Wendigo was no longer just a scary story."
-                ],
-                thai: [
-                    "กลุ่มนักเดินทางนั่งล้อมรอบกองไฟ เปลวไฟทอดเงายาวไปบนต้นไม้ที่ปกคลุมด้วยหิมะ พวกเขารู้สึกถึงความหนาวยะเยือกที่ไม่ใช่แค่ลมน้ำแข็ง",
-                    "ลึกเข้าไปในป่ามืด ดวงตาสีแดงเปล่งแสงกำลังจ้องมองพวกเขาอย่างเงียบเชียบ ตำนานของ Wendigo ไม่ใช่แค่เรื่องเล่าสยองขวัญอีกต่อไป"
-                ],
-                taggedWords: {
-                    "campfire": { pos: "n.", ipa: "/ˈkæmp.faɪr/", thReading: "แคมป์ไฟเออร์", meaning: "กองไฟ", level: "A2" },
-                    "shadows": { pos: "n.", ipa: "/ˈʃæd.oʊz/", thReading: "แชโดว์ส", meaning: "เงา", level: "A2" },
-                    "chill": { pos: "n.", ipa: "/tʃɪl/", thReading: "ชิลล์", meaning: "ความหนาวยะเยือก", level: "B1" },
-                    "legend": { pos: "n.", ipa: "/ˈledʒ.ənd/", thReading: "เลเจนด์", meaning: "ตำนาน", level: "B1" }
-                }
+                cover: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&q=80',
+                rating: '4.8 (230 ratings)',
+                paragraphs: [
+                    {
+                        en: "Observation is the key to deduction. Most people look, but they do not truly see what is in front of them.",
+                        th: "การสังเกตคือหัวใจสำคัญของการอนุมาน คนส่วนใหญ่แค่มอง แต่พวกเขาไม่ได้มองเห็นสิ่งที่อยู่ตรงหน้าจริงๆ",
+                        tense: "Present Simple Tense (หลักการและข้อเท็จจริงทั่วไป)",
+                        vocab: {
+                            "observation": { pos: "n.", ipa: "/ˌɒb.zəˈveɪ.ʃən/", meaning: "การสังเกต", level: "B2", ex: "Keen observation is vital." },
+                            "deduction": { pos: "n.", ipa: "/dɪˈdʌk.ʃən/", meaning: "การอนุมาน, การหักล้างเหตุผล", level: "C1", ex: "A logical deduction." }
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'wendigo-forest',
+                title: 'The Curse of the Wendigo',
+                author: 'Algernon Blackwood',
+                level: 'B2',
+                cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=80',
+                rating: '4.7 (95 ratings)',
+                paragraphs: [
+                    {
+                        en: "The winter blizzard trapped five travelers inside the wooden shelter. As the food ran out, paranoia began to poison their thoughts.",
+                        th: "พายุหิมะในฤดูหนาวได้พัดเอาตัวนักเดินทางห้าคนมาติดอยู่ภายในที่พักไม้ ขณะที่อาหารเริ่มหมดลง ความระแวงก็เริ่มกัดกินความคิดของพวกเขา",
+                        tense: "Past Simple Tense (บรรยายสถานการณ์ความขัดแย้งในอดีต)",
+                        vocab: {
+                            "blizzard": { pos: "n.", ipa: "/ˈblɪz.əd/", meaning: "พายุหิมะรุนแรง", level: "B2", ex: "The blizzard shut down the roads." },
+                            "trapped": { pos: "v.", ipa: "/træpt/", meaning: "ติดกับดัก, ถูกขัง", level: "B1", ex: "They were trapped inside." },
+                            "paranoia": { pos: "n.", ipa: "/ˌpær.əˈnɔɪ.ə/", meaning: "ความหวาดระแวงเกินจริง", level: "C1", ex: "Fear turned into complete paranoia." }
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'ghost-ship',
+                title: 'The Phantom Ghost Ship',
+                author: 'Captain J. Marryat',
+                level: 'B1',
+                cover: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=80',
+                rating: '4.4 (68 ratings)',
+                paragraphs: [
+                    {
+                        en: "Sailors often spoke of a black ship that sailed against the wind, carrying no lights and no living crew.",
+                        th: "เหล่ากลาสีเรือมักเล่าถึงเรือสีดำลำหนึ่งที่เดินเรือสวนทิศทางลม โดยไร้ซึ่งแสงไฟและไร้ลูกเรือที่มีชีวิต",
+                        tense: "Past Simple Tense (เล่าเรื่องราวความเชื่อในอดีต)",
+                        vocab: {
+                            "sailors": { pos: "n.", ipa: "/ˈseɪ.ləz/", meaning: "กลาสีเรือ, นักเดินเรือ", level: "A2", ex: "Sailors guided the ship." },
+                            "sailed": { pos: "v.", ipa: "/seɪld/", meaning: "เดินเรือ, แล่นเรือ", level: "A2", ex: "The boat sailed across the lake." }
+                        }
+                    }
+                ]
             }
         ];
 
-        let currentStory = stories[0];
+        let currentBook = libraryBooks[0];
+        let showTranslation = true;
 
-        // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
-            renderStoryGrid();
-            loadStory(stories[0].id);
+            renderBookGrid();
         });
 
-        // Switch Tabs
-        function switchTab(tabName) {
-            ['library', 'reader', 'focus'].forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
-                document.getElementById(`btn-${t}`).className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-stone-800 text-stone-400 hover:text-white transition';
-            });
-            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`btn-${tabName}`).className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 text-white transition';
-        }
-
-        // Render Story Cards in Library
-        function renderStoryGrid() {
-            const grid = document.getElementById('story-grid');
-            grid.innerHTML = stories.map(s => `
-                <div onclick="selectStory('${s.id}')" class="bg-stone-900 border border-stone-800 hover:border-orange-600/60 rounded-xl overflow-hidden cursor-pointer transition group shadow-lg">
-                    <div class="h-36 bg-stone-800 relative overflow-hidden">
-                        <img src="${s.image}" alt="${s.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-black/80 backdrop-blur text-orange-400 border border-orange-800 rounded text-[10px] font-bold">${s.level}</span>
+        function renderBookGrid() {
+            const grid = document.getElementById('book-grid');
+            grid.innerHTML = libraryBooks.map(b => `
+                <div onclick="openBook('${b.id}')" class="bg-white border border-stone-200 hover:border-amber-600 rounded-xl overflow-hidden cursor-pointer transition shadow-sm hover:shadow-md flex flex-col">
+                    <div class="h-48 bg-stone-100 relative overflow-hidden">
+                        <img src="${b.cover}" alt="${b.title}" class="w-full h-full object-cover">
+                        <span class="absolute top-2 right-2 px-2 py-0.5 bg-black/70 backdrop-blur text-amber-300 border border-amber-600 rounded text-[10px] font-bold">${b.level}</span>
                     </div>
-                    <div class="p-4 space-y-2">
-                        <h3 class="font-bold text-base text-stone-100 group-hover:text-orange-400 transition">${s.title}</h3>
-                        <div class="flex items-center justify-between text-[11px] text-stone-400">
-                            <span>📚 คำศัพท์ในเรื่อง ${s.vocabCount} คำ</span>
-                            <span class="text-orange-500 font-semibold">เริ่มอ่าน →</span>
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+                        <div>
+                            <h4 class="font-bold font-cinzel text-base text-stone-900">${b.title}</h4>
+                            <p class="text-xs text-stone-500">by ${b.author}</p>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] text-stone-600 pt-2 border-t border-stone-100">
+                            <span>⭐ ${b.rating}</span>
+                            <span class="text-amber-700 font-bold">Read Book →</span>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Select and Load Story
-        function selectStory(storyId) {
-            loadStory(storyId);
-            switchTab('reader');
-        }
-
-        function loadStory(storyId) {
-            currentStory = stories.find(s => s.id === storyId) || stories[0];
+        function openBook(bookId) {
+            currentBook = libraryBooks.find(b => b.id === bookId) || libraryBooks[0];
             
-            // Reader Tab Elements
-            document.getElementById('reader-title').innerText = currentStory.title;
-            document.getElementById('reader-level').innerText = currentStory.level;
+            document.getElementById('reader-title').innerText = currentBook.title;
+            document.getElementById('reader-author').innerText = `by ${currentBook.author}`;
+            document.getElementById('reader-level').innerText = currentBook.level;
+            document.getElementById('reader-cover').src = currentBook.cover;
 
-            // Render Interactive English Text with CEFR Badges
-            const engContainer = document.getElementById('english-content');
-            engContainer.innerHTML = currentStory.english.map(para => {
-                const words = para.split(' ');
-                const formattedWords = words.map(rawWord => {
-                    const cleanWord = rawWord.toLowerCase().replace(/[^a-z]/g, '');
-                    const wordInfo = currentStory.taggedWords[cleanWord];
+            renderReaderContent();
 
-                    if (wordInfo) {
-                        return `<span onclick="openModal('${cleanWord}')" class="relative inline-block mx-0.5 px-1 py-0.5 bg-orange-950/60 hover:bg-orange-900/80 text-orange-200 border-b-2 border-orange-500 rounded cursor-pointer transition group">
-                            <span class="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] bg-orange-900 text-orange-300 px-1 rounded-sm leading-none font-bold">${wordInfo.level}</span>
-                            ${rawWord}
-                        </span>`;
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-reader').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHome() {
+            document.getElementById('view-reader').classList.add('hidden');
+            document.getElementById('view-home').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderReaderContent() {
+            const container = document.getElementById('story-paragraphs');
+            container.innerHTML = '';
+
+            currentBook.paragraphs.forEach((p, pIdx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = "space-y-2 border-b border-stone-200 pb-5 last:border-0";
+
+                const engP = document.createElement('p');
+                engP.className = "font-book text-lg sm:text-xl text-stone-900 leading-relaxed";
+
+                p.en.split(' ').forEach(word => {
+                    const clean = word.toLowerCase().replace(/[^a-z]/g, '');
+                    const hasVocab = p.vocab && p.vocab[clean];
+
+                    const span = document.createElement('span');
+                    span.className = `word-token ${hasVocab ? 'underline decoration-amber-600 decoration-1 underline-offset-4 text-amber-900 font-semibold' : ''}`;
+                    span.innerText = word + ' ';
+
+                    if (hasVocab) {
+                        span.onclick = (e) => {
+                            e.stopPropagation();
+                            highlightWord(span);
+                            openVocabModal(clean, p.vocab[clean]);
+                        };
                     }
-                    return rawWord;
-                }).join(' ');
+                    engP.appendChild(span);
+                });
+                wrapper.appendChild(engP);
 
-                return `<p class="text-base">${formattedWords}</p>`;
-            }).join('');
+                const thP = document.createElement('p');
+                thP.className = `text-sm sm:text-base text-stone-700 leading-relaxed font-serif transition-all ${showTranslation ? 'block' : 'hidden'}`;
+                thP.id = `th-${pIdx}`;
+                thP.innerText = p.th;
+                wrapper.appendChild(thP);
 
-            // Render Thai Translation
-            const thaiContainer = document.getElementById('thai-content');
-            thaiContainer.innerHTML = currentStory.thai.map(para => `<p class="leading-relaxed">${para}</p>`).join('');
+                const tenseDiv = document.createElement('div');
+                tenseDiv.className = `text-[11px] font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-md border border-amber-200 inline-block mt-1 ${showTranslation ? 'block' : 'hidden'}`;
+                tenseDiv.id = `tense-${pIdx}`;
+                tenseDiv.innerHTML = `📌 <b>Grammar / Tense:</b> ${p.tense}`;
+                wrapper.appendChild(tenseDiv);
 
-            // Render Learning Focus Table
-            const vocabTable = document.getElementById('vocab-table-body');
-            vocabTable.innerHTML = Object.entries(currentStory.taggedWords).map(([word, info]) => `
-                <tr class="hover:bg-stone-800/50 transition">
-                    <td class="p-3 font-bold text-orange-400">${word} <span class="text-[9px] bg-stone-800 px-1 text-stone-400 rounded">${info.level}</span></td>
-                    <td class="p-3 text-stone-400 italic">${info.pos}</td>
-                    <td class="p-3"><div class="text-stone-200">${info.thReading}</div><div class="text-[10px] text-stone-500">${info.ipa}</div></td>
-                    <td class="p-3 font-semibold text-emerald-400">${info.meaning}</td>
-                </tr>
-            `).join('');
+                container.appendChild(wrapper);
+            });
         }
 
-        // Dictionary Modal Controls
-        function openModal(wordKey) {
-            const info = currentStory.taggedWords[wordKey];
-            if (!info) return;
-
-            document.getElementById('modal-word').innerText = wordKey;
-            document.getElementById('modal-pos').innerText = info.pos;
-            document.getElementById('modal-ipa').innerText = info.ipa;
-            document.getElementById('modal-cefr').innerText = info.level;
-            document.getElementById('modal-meaning').innerText = `${info.meaning} (${info.thReading})`;
-
-            document.getElementById('dict-modal').classList.remove('hidden');
+        function toggleTranslation() {
+            showTranslation = !showTranslation;
+            currentBook.paragraphs.forEach((_, idx) => {
+                const th = document.getElementById(`th-${idx}`);
+                const tense = document.getElementById(`tense-${idx}`);
+                if (th) th.style.display = showTranslation ? 'block' : 'none';
+                if (tense) tense.style.display = showTranslation ? 'block' : 'none';
+            });
         }
 
-        function closeModal() {
-            document.getElementById('dict-modal').classList.add('hidden');
+        function highlightWord(el) {
+            document.querySelectorAll('.word-token').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function openVocabModal(word, info) {
+            document.getElementById('v-word').innerText = word;
+            document.getElementById('v-pos').innerText = info.pos;
+            document.getElementById('v-level').innerText = info.level;
+            document.getElementById('v-ipa').innerText = info.ipa;
+            document.getElementById('v-meaning').innerText = info.meaning;
+            document.getElementById('v-example').innerText = `"${info.ex}"`;
+
+            document.getElementById('vocab-modal').classList.remove('hidden');
+        }
+
+        function closeVocabModal() {
+            document.getElementById('vocab-modal').classList.add('hidden');
+            document.querySelectorAll('.word-token').forEach(e => e.classList.remove('selected'));
         }
     </script>
 </body>
